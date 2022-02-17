@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Глеб Лузин](https://up.htmlacademy.ru/javascript/25/user/1940171).
-* Наставник: `Владислав Зубко`(https://htmlacademy.ru/profile/whatislove).
+* Наставник: [Владислав Зубко](https://htmlacademy.ru/profile/whatislove).
 
 ---
 

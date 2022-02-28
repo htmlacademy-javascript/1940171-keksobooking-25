@@ -92,6 +92,4 @@ const createAd = () => ({
 
 });
 
-
-// eslint-disable-next-line no-console
-console.log (createAd());
+createAd();

@@ -92,4 +92,7 @@ const createAd = () => ({
 
 });
 
-createAd();
+const similarAdd = Array.from({length: 10}, createAd);
+
+// eslint-disable-next-line no-console
+console.log(similarAdd);

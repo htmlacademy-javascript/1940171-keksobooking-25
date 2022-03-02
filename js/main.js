@@ -52,45 +52,40 @@ const createUrl = () => {
   }
 };
 
-const getArray = (Array) => {
-  const maxLength = Array.length;
-  const lengthOfArray = getRandom(1, maxLength);
-  const array = [];
+const getShuffledItems = (items) => items.slice().sort(() => 0.5 - Math.random());
 
-  for(let i = 0;i < lengthOfArray;i++) {
-    const indexOfEl = getRandom(0, 5);
-    const el = Array[indexOfEl];
-
-    if (!array.includes(el)) {
-      array.push(el);
-    }
-  }
-  return array;
+const getRandomItems = (items) => {
+  const randomIdx = getRandom(0, items.length);
+  return getShuffledItems(items).slice(0, randomIdx);
 };
 
-const createAd = () => ({
-  author: {
-    avatar: createUrl(),
-  },
-  location: {
-    lat: getRandomFraction(35.65000, 35.70000, 5),
-    lng: getRandomFraction(139.70000, 139.80000, 5)
-  },
-  offer: {
-    title: 'Чудо жильё',
-    address: `${getRandomFraction(35.65000, 35.70000, 5)  }, ${ getRandomFraction(139.70000, 139.80000, 5)}`,
-    price: getRandom(10000,30000),
-    type: TYPES[getRandom(0,4)],
-    rooms: getRandom(1,8),
-    guests: getRandom(6,20),
-    checkin: TIMES[getRandom(0,2)],
-    checkout: TIMES[getRandom(0,2)],
-    features: getArray(FEATURES),
-    description: 'Простор, комфорт, доступность - это про нас',
-    photos:getArray(PHOTO),
-  }
 
-});
+const createAd = () => {
+  const lat = getRandomFraction(35.65000, 35.70000, 5);
+  const lng = getRandomFraction(139.70000, 139.80000, 5);
+  return {
+    author: {
+      avatar: createUrl()
+    },
+    location: {
+      lat: lat,
+      lng: lng
+    },
+    offer: {
+      title: 'Чудо жильё',
+      address: `${lat}, ${lng}`,
+      price: getRandom(10000,30000),
+      type: TYPES[getRandom(0,4)],
+      rooms: getRandom(1,8),
+      guests: getRandom(6,20),
+      checkin: TIMES[getRandom(0,TIMES.length - 1)],
+      checkout: TIMES[getRandom(0,TIMES.length - 1)],
+      features: getRandomItems (FEATURES),
+      description: 'Простор, комфорт, доступность - это про нас',
+      photos:getRandomItems (PHOTO),
+    }
+  };
+};
 
 const similarAdd = Array.from({length: 10}, createAd);
 

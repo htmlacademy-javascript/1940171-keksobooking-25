@@ -1,6 +1,5 @@
 import {getRandom, getRandomFraction, createUrl, getRandomItems} from './util.js' ;
 
-
 const TYPES = [
   'palace',
   'flat',
@@ -60,5 +59,4 @@ const createAd = () => {
 
 const similarAdd = Array.from({length: 10}, createAd);
 
-// eslint-disable-next-line no-console
-console.log (similarAdd);
+export {similarAdd};

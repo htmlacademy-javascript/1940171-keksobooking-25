@@ -57,6 +57,6 @@ const createAd = () => {
   };
 };
 
-const similarAdd = Array.from({length: 10}, createAd);
+const createSimilarAdd = () => Array.from({length: 10}, createAd);
 
-export {similarAdd};
+export {createSimilarAdd};

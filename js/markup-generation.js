@@ -1,7 +1,5 @@
-import {createSimilarAdd} from './data.js';
 const canvas = document.querySelector('#map-canvas');
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
-const similarCard = createSimilarAdd();
 const TYPE = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -9,7 +7,8 @@ const TYPE = {
   palace: 'Дворец',
   hotel: 'Отель'
 };
-similarCard.forEach((card) => {
+const  renderPopup = (card) => {
+
   const cardElement = templateCard.cloneNode(true);
   const photoContainer = cardElement.querySelector('.popup__photos');
   if (card.offer.title) {
@@ -83,4 +82,8 @@ similarCard.forEach((card) => {
     cardElement.querySelector('.popup__photos').classList.add('hidden');
   }
   canvas.appendChild(cardElement);
-});
+
+
+};
+
+export {renderPopup};

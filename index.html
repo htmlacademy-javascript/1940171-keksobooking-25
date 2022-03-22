@@ -71,7 +71,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form class="ad-form" method="post" enctype="multipart/form-data" autocomplete="off" action="https://25.javascript.pages.academy/keksobooking">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -85,13 +85,22 @@
             <p class="ad-form-header__info">Заполните все обязательные поля, назначьте цену, загрузите аватар и фото жилья. Придумайте интересное описание. Оно сделает объявление более живым и привлекательным. Получившееся объявление должно давать гостям полное представление о вашем жилье.</p>
           </div>
         </fieldset>
-        <fieldset class="ad-form__element ad-form__element--wide">
+        <fieldset class="ad-form__element ad-form__element--wide form__item">
           <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио">
+          <input id="title"
+          name="title"
+          type="text"
+          placeholder="Милая, уютная квартирка в центре Токио"
+          minlength="30"
+          maxlength="100"
+          data-pristine-required-message="Придумайте заголовок к объявлению"
+          data-pristine-minlength-message="Минимум 30 символа"
+          data-pristine-maxlength-message="Максимум 100 символов"
+          required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес (координаты)</label>
-          <input id="address" name="address" type="text">
+          <input id="address" name="address" type="text" required>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
@@ -103,9 +112,17 @@
             <option value="palace">Дворец</option>
           </select>
         </fieldset>
-        <fieldset class="ad-form__element">
+        <fieldset class="ad-form__element form__item">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000">
+          <input id="price"
+          name="price"
+          type="number"
+          placeholder="5000"
+          required
+          min="0"
+          max="100000"
+          data-pristine-minlength-message="Минимальная длина 2 символа"
+          >
           <div class="ad-form__slider"></div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
@@ -121,7 +138,7 @@
             <option value="14:00">Выезд до 14</option>
           </select>
         </fieldset>
-        <fieldset class="ad-form__element">
+        <fieldset class="ad-form__element form__item">
           <label class="ad-form__label" for="room_number">Количество комнат</label>
           <select id="room_number" name="rooms">
             <option value="1" selected>1 комната</option>
@@ -130,7 +147,7 @@
             <option value="100">100 комнат</option>
           </select>
         </fieldset>
-        <fieldset class="ad-form__element">
+        <fieldset class="ad-form__element form__item">
           <label class="ad-form__label" for="capacity">Количество мест</label>
           <select id="capacity" name="capacity">
             <option value="3" selected>для 3 гостей</option>
@@ -230,6 +247,7 @@
       <button type="button" class="error__button">Попробовать снова</button>
     </div>
   </template>
+  <script src="./pristine/pristine.min.js"></script>
   <script src="./js/main.js" type="module"></script>
 </body>
 </html>

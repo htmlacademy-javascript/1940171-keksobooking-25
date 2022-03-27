@@ -1,6 +1,6 @@
 const form = document.querySelector('.ad-form');
 const header = document.querySelector('.ad-form-header');
-const fieldset = document.querySelectorAll('.ad-form__element');
+const fieldsetS = document.querySelectorAll('.ad-form__element');
 
 const filters = document.querySelector('.map__filters');
 const features = document.querySelector('#housing-features');
@@ -12,12 +12,14 @@ const guests = document.querySelector('#housing-guests');
 const disabledForm = ()=>{
   form.classList.add('ad-form--disabled');
   filters.classList.add('ad-form--disabled');
-  header.setAttribute.add('disabled', 'disabled');
-  fieldset.setAttribute.add('disabled', 'disabled');
-  features.setAttribute.add('disabled', 'disabled');
-  type.setAttribute.add('disabled', 'disabled');
-  price.setAttribute.add('disabled', 'disabled');
-  rooms.setAttribute.add('disabled', 'disabled');
-  guests.setAttribute.add('disabled', 'disabled');
+  header.setAttribute('disabled', 'disabled');
+  features.setAttribute('disabled', 'disabled');
+  type.setAttribute('disabled', 'disabled');
+  price.setAttribute('disabled', 'disabled');
+  rooms.setAttribute('disabled', 'disabled');
+  guests.setAttribute('disabled', 'disabled');
+  fieldsetS.forEach((elem)=>{
+    elem.setAttribute('disabled', 'disabled');
+  });
 };
 export {disabledForm};

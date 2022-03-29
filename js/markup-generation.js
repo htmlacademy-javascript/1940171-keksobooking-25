@@ -1,4 +1,3 @@
-const canvas = document.querySelector('#map-canvas');
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
 const TYPE = {
   flat: 'Квартира',
@@ -81,9 +80,7 @@ const  renderPopup = (card) => {
   } else {
     cardElement.querySelector('.popup__photos').classList.add('hidden');
   }
-  canvas.appendChild(cardElement);
-
-
+  return cardElement;
 };
 
 export {renderPopup};

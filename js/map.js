@@ -8,6 +8,7 @@ const resetButton = document.querySelector('.ad-form__reset');
 const form = document.querySelector('.ad-form');
 const START_LATITUDE = 35.6895;
 const START_LONGITUDE = 139.692;
+const START_ZOOM = 8;
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -17,7 +18,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: START_LATITUDE,
     lng: START_LONGITUDE,
-  }, 8);
+  }, START_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -82,7 +83,7 @@ resetButton.addEventListener('click',()=>{
   map.setView({
     lat: START_LATITUDE,
     lng: START_LONGITUDE,
-  }, 8);
+  }, START_ZOOM);
 });
 
 form.addEventListener('sumbit',()=>{
@@ -93,7 +94,7 @@ form.addEventListener('sumbit',()=>{
   map.setView({
     lat: START_LATITUDE,
     lng: START_LONGITUDE,
-  }, 8);
+  }, START_ZOOM);
 });
 
 mainPinMarker.on('moveend', (evt) => {

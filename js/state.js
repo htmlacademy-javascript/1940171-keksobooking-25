@@ -22,4 +22,17 @@ const disabledForm = ()=>{
     elem.setAttribute('disabled', 'disabled');
   });
 };
-export {disabledForm};
+const EnabledForm = ()=> {
+  form.classList.remove('ad-form--disabled');
+  filters.classList.remove('ad-form--disabled');
+  header.removeAttribute('disabled', 'disabled');
+  features.removeAttribute('disabled', 'disabled');
+  type.removeAttribute('disabled', 'disabled');
+  price.removeAttribute('disabled', 'disabled');
+  rooms.removeAttribute('disabled', 'disabled');
+  guests.removeAttribute('disabled', 'disabled');
+  fieldsetS.forEach((elem)=>{
+    elem.removeAttribute('disabled', 'disabled');
+  });
+};
+export {disabledForm, EnabledForm};

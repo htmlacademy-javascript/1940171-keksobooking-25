@@ -99,3 +99,4 @@ adForm.addEventListener('submit', (evt) => {
   }
 });
 
+export {typeРousing};

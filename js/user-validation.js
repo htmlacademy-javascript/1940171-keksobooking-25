@@ -88,6 +88,22 @@ roomsField.addEventListener('change', () => {
 });
 
 
+const timeOptions = {
+  '12:00' : '12:00',
+  '13:00' : '13:00',
+  '14:00' : '14:00',
+};
+const timein = adForm.querySelector('[name="timein"]');
+const timeout = adForm.querySelector('[name="timeout"]');
+
+timein.addEventListener('change', () => {
+  timeout.value = timeOptions[timein.value];
+});
+timeout.addEventListener('change', () => {
+  timein.value = timeOptions[timeout.value];
+});
+
+
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();

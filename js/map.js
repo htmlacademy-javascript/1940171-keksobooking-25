@@ -1,15 +1,12 @@
 import {disabledForm, EnabledForm} from './state.js';
-import {createSimilarAdd} from './data.js';
 import { renderPopup } from './markup-generation.js';
-const similarAdds = createSimilarAdd(10);
 disabledForm();
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
 const form = document.querySelector('.ad-form');
 const START_LATITUDE = 35.6895;
 const START_LONGITUDE = 139.692;
-const START_ZOOM = 8;
-
+const START_ZOOM = 12;
 const map = L.map('map-canvas')
   .on('load', () => {
     address.value = `${START_LATITUDE  } ,${ START_LONGITUDE}`;
@@ -71,11 +68,10 @@ const createMarker = (point) => {
     .bindPopup(renderPopup(point));
 };
 
-similarAdds.forEach((point)=>{
-  createMarker(point);
-});
 
 resetButton.addEventListener('click',()=>{
+  form.reset();
+  address.value = `${START_LATITUDE  } ,${ START_LONGITUDE}`;
   mainPinMarker.setLatLng({
     lat: START_LATITUDE,
     lng: START_LONGITUDE,
@@ -102,3 +98,4 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${markerAddress.lat  }, ${markerAddress.lng}`;
 });
 
+export {createMarker, START_LATITUDE, START_LONGITUDE};

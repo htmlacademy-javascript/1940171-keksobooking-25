@@ -1,62 +1,106 @@
-import {getRandom, getRandomFraction, createUrl, getRandomItems} from './util.js' ;
+import {createMarker} from './map.js' ;
+import {pristine} from './user-validation.js' ;
+import {showAlert} from './util.js' ;
+import {isEscEvent} from './util.js';
+import {START_LATITUDE, START_LONGITUDE} from './map.js';
+const adForm = document.querySelector ('.ad-form');
+const successTemplate = document.querySelector ('#success').content.querySelector('.success');
+const successMessage = successTemplate.cloneNode(true);
+const errorTemplate = document.querySelector ('#error').content.querySelector('.error');
+const errorMessage = errorTemplate.cloneNode(true);
+const errorButton = document.querySelector('error__button');
+const submitButton = document.querySelector('.ad-form__submit');
+const address = document.querySelector('#address');
 
-const TYPES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-  'hotel'
-];
-
-const TIMES = [
-  '12:00',
-  '13:00',
-  '14:00',
-];
-
-const FEATURES = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner'
-];
-
-const PHOTO = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-];
-
-
-const createAd = () => {
-  const lat = getRandomFraction(35.65000, 35.70000, 5);
-  const lng = getRandomFraction(139.70000, 139.80000, 5);
-  return {
-    author: {
-      avatar: createUrl()
-    },
-    location: {
-      lat: lat,
-      lng: lng
-    },
-    offer: {
-      title: 'Чудо жильё',
-      address: `${lat}, ${lng}`,
-      price: getRandom(10000,30000),
-      type: TYPES[getRandom(0,4)],
-      rooms: getRandom(1,8),
-      guests: getRandom(6,20),
-      checkin: TIMES[getRandom(0,TIMES.length - 1)],
-      checkout: TIMES[getRandom(0,TIMES.length - 1)],
-      features: getRandomItems (FEATURES),
-      description: 'Простор, комфорт, доступность - это про нас',
-      photos:getRandomItems (PHOTO),
-    }
-  };
+const getData = (onSuccess, onFail) => {
+  fetch('https://25.javascript.pages.academy/keksobooking/data')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        onFail('Произошла ошибка загрузки данных, перезагрузите страницу');
+      }})
+    .then((data) => {
+      data.forEach((point)=>{
+        onSuccess(point);
+      });
+    })
+    .catch(()=>{
+      onFail('Произошла ошибка загрузки данных, перезагрузите страницу');
+    });
 };
 
-const createSimilarAdd = (count) => Array.from({length: count}, createAd);
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    const formData = new FormData(evt.target);
+    submitButton.setAttribute('disabled', 'disabled');
+    fetch(
+      ' https://25.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+      .then((response)=>{
+        if (response.ok)
+        {
+          evt.target.reset();
+          address.value = `${START_LATITUDE  } ,${ START_LONGITUDE}`;
+          submitButton.removeAttribute('disabled', 'disabled');
+          document.body.append(successMessage);
+          window.addEventListener('keydown', onKeyDownSuccessMessage);
+          document.addEventListener('click', onClickSuccessMessage);
+        } else {
+          throw new Error();
+        }
+      })
+      .catch(()=>{
+        document.body.append(errorMessage);
+        submitButton.removeAttribute('disabled', 'disabled');
+        window.addEventListener('keydown', onKeyDownErrorMessage);
+        document.addEventListener('click', onClickErrorMessage);
+        errorButton.addEventListener('click', onClickErrorButton);
+      });
+  }
+});
 
-export {createSimilarAdd};
+function closeSuccessMessage () {
+  successMessage.remove();
+  window.removeEventListener('keydown', onKeyDownSuccessMessage);
+  document.removeEventListener('click', onClickSuccessMessage);
+}
+
+function onClickSuccessMessage  () {
+  closeSuccessMessage();
+}
+
+function onKeyDownSuccessMessage (evt) {
+  if (isEscEvent(evt)) {
+    closeSuccessMessage();
+  }
+}
+
+
+function closeErrorMessage () {
+  errorMessage.remove();
+  window.removeEventListener('keydown', onKeyDownErrorMessage);
+  document.removeEventListener('click', onClickErrorMessage);
+  document.addEventListener('click', onClickSuccessMessage);
+}
+function onClickErrorMessage  () {
+  closeErrorMessage();
+}
+
+function onKeyDownErrorMessage (evt) {
+  if (isEscEvent(evt)) {
+    closeErrorMessage();
+  }
+}
+
+function onClickErrorButton () {
+  closeErrorMessage();
+}
+
+getData(createMarker, showAlert);

@@ -103,16 +103,4 @@ timeout.addEventListener('change', () => {
   timein.value = timeOptions[timeout.value];
 });
 
-
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const isValid = pristine.validate();
-  if (isValid) {
-    window.console.log('Можно отправлять');
-  } else {
-    evt.preventDefault();
-    window.console.log('Форма невалидна');
-  }
-});
-
-export {typeРousing};
+export {typeРousing, pristine};

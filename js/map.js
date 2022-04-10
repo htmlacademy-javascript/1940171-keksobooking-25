@@ -1,5 +1,7 @@
 import {disabledForm, EnabledForm} from './state.js';
 import { renderPopup } from './markup-generation.js';
+import {showAlert} from './util.js' ;
+import {getData} from './api.js';
 disabledForm();
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -23,6 +25,7 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
+
 
 const adsPinIcon = L.icon({
   iconUrl: './img/pin.svg',
@@ -68,6 +71,7 @@ const createMarker = (point) => {
     .bindPopup(renderPopup(point));
 };
 
+getData(createMarker, showAlert);
 
 resetButton.addEventListener('click',()=>{
   form.reset();

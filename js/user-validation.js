@@ -1,6 +1,19 @@
+import {isEscEvent} from './util.js';
+import {START_LATITUDE, START_LONGITUDE} from './map.js';
+import {sendData} from './api.js';
+
+
 const adForm = document.querySelector ('.ad-form');
 const roomsField = adForm.querySelector('[name="rooms"]');
 const capacityField = adForm.querySelector('[name="capacity"]');
+const successTemplate = document.querySelector ('#success').content.querySelector('.success');
+const successMessage = successTemplate.cloneNode(true);
+const errorTemplate = document.querySelector ('#error').content.querySelector('.error');
+const errorMessage = errorTemplate.cloneNode(true);
+const errorButton = document.querySelector('.error__button');
+const submitButton = document.querySelector('.ad-form__submit');
+const address = document.querySelector('#address');
+
 
 const typeРousing = {
   bungalow: 0,
@@ -103,16 +116,69 @@ timeout.addEventListener('change', () => {
   timein.value = timeOptions[timeout.value];
 });
 
+const onSuccess=()=>{
+  adForm.reset();
+  address.value = `${START_LATITUDE  } ,${ START_LONGITUDE}`;
+  submitButton.removeAttribute('disabled', 'disabled');
+  document.body.append(successMessage);
+  window.addEventListener('keydown', onKeyDownSuccessMessage);
+  document.addEventListener('click', onClickSuccessMessage);
+};
+
+
+const onFail =()=>{
+  document.body.append(errorMessage);
+  submitButton.removeAttribute('disabled', 'disabled');
+  window.addEventListener('keydown', onKeyDownErrorMessage);
+  document.addEventListener('click', onClickErrorMessage);
+  errorButton.addEventListener('click', onClickErrorButton);
+};
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    window.console.log('Можно отправлять');
-  } else {
-    evt.preventDefault();
-    window.console.log('Форма невалидна');
+    const formData = new FormData(evt.target);
+    submitButton.setAttribute('disabled', 'disabled');
+    sendData (onSuccess,onFail,formData);
   }
 });
 
-export {typeРousing};
+function closeSuccessMessage () {
+  successMessage.remove();
+  window.removeEventListener('keydown', onKeyDownSuccessMessage);
+  document.removeEventListener('click', onClickSuccessMessage);
+}
+
+function onClickSuccessMessage  () {
+  closeSuccessMessage();
+}
+
+function onKeyDownSuccessMessage (evt) {
+  if (isEscEvent(evt)) {
+    closeSuccessMessage();
+  }
+}
+
+
+function closeErrorMessage () {
+  errorMessage.remove();
+  window.removeEventListener('keydown', onKeyDownErrorMessage);
+  document.removeEventListener('click', onClickErrorMessage);
+  document.addEventListener('click', onClickSuccessMessage);
+}
+function onClickErrorMessage  () {
+  closeErrorMessage();
+}
+
+function onKeyDownErrorMessage (evt) {
+  if (isEscEvent(evt)) {
+    closeErrorMessage();
+  }
+}
+
+function onClickErrorButton () {
+  closeErrorMessage();
+}
+
+export {typeРousing, pristine};

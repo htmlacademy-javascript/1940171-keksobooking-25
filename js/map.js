@@ -1,7 +1,6 @@
 import {disabledForm, EnabledForm} from './state.js';
 import { renderPopup } from './markup-generation.js';
-import {showAlert} from './util.js' ;
-import {getData} from './api.js';
+import {compareAds} from './map-filter.js';
 disabledForm();
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -68,12 +67,23 @@ const createMarker = (point) => {
     },
   );
   marker.addTo(markerGroup)
-    .bindPopup(renderPopup(point));
+    .bindPopup(
+      renderPopup(point)
+    );
 };
 
-getData(createMarker, showAlert);
+const renderSimilarAds = (ads, adCount) => {
+  markerGroup.clearLayers();
+  ads
+    .slice()
+    .sort(compareAds)
+    .slice(0, adCount)
+    .forEach((advertise) => {
+      createMarker(advertise);
+    });
+};
 
-resetButton.addEventListener('click',()=>{
+const resetForm = () => {
   form.reset();
   address.value = `${START_LATITUDE  } ,${ START_LONGITUDE}`;
   mainPinMarker.setLatLng({
@@ -84,6 +94,11 @@ resetButton.addEventListener('click',()=>{
     lat: START_LATITUDE,
     lng: START_LONGITUDE,
   }, START_ZOOM);
+};
+
+resetButton.addEventListener('click',(evt)=>{
+  evt.preventDefault();
+  resetForm();
 });
 
 form.addEventListener('sumbit',()=>{
@@ -102,4 +117,4 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${markerAddress.lat  }, ${markerAddress.lng}`;
 });
 
-export {createMarker, START_LATITUDE, START_LONGITUDE};
+export {createMarker, START_LATITUDE, START_LONGITUDE, renderSimilarAds};

@@ -1,6 +1,6 @@
 import {disabledForm, EnabledForm} from './state.js';
 import { renderPopup } from './markup-generation.js';
-import {compareAds} from './map-filter.js';
+import {checkType,checkPrice, checkRooms, checkGuests, checkFeatures} from './map-filter.js';
 disabledForm();
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -76,7 +76,7 @@ const renderSimilarAds = (ads, adCount) => {
   markerGroup.clearLayers();
   ads
     .slice()
-    .sort(compareAds)
+    .filter((it) => checkType(it) && checkPrice(it) && checkRooms(it) && checkGuests(it) && checkFeatures(it))
     .slice(0, adCount)
     .forEach((advertise) => {
       createMarker(advertise);

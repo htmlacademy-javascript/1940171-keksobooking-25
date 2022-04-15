@@ -1,4 +1,4 @@
-const getData = (onSuccess, onFail) => {
+const getData = (onFail, onSuccess) => {
   fetch('https://25.javascript.pages.academy/keksobooking/data')
     .then((response) => {
       if (response.ok) {
@@ -6,10 +6,8 @@ const getData = (onSuccess, onFail) => {
       } else {
         onFail('Произошла ошибка загрузки данных, перезагрузите страницу');
       }})
-    .then((data) => {
-      data.forEach((point)=>{
-        onSuccess(point);
-      });
+    .then((ads) => {
+      onSuccess(ads);
     })
     .catch(()=>{
       onFail('Произошла ошибка загрузки данных, перезагрузите страницу');

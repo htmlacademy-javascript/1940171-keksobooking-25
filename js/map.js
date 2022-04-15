@@ -101,7 +101,7 @@ resetButton.addEventListener('click',(evt)=>{
   resetForm();
 });
 
-form.addEventListener('sumbit',()=>{
+form.addEventListener('submit',()=>{
   mainPinMarker.setLatLng({
     lat: START_LATITUDE,
     lng: START_LONGITUDE,

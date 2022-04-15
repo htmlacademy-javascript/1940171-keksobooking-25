@@ -1,4 +1,4 @@
-import {getChekedInputValues} from './util.js';
+import {getCheckedInputValues} from './util.js';
 const mapFilters = document.querySelector('.map__filters');
 
 const adsFilter = (cb) => {
@@ -11,9 +11,9 @@ const checkType = (ads)=>{
   const filterType = document.querySelector('#housing-type');
   if (filterType.value === 'any') {
     return true;
-  } else {
-    return ads.offer.type===filterType.value;
   }
+  return ads.offer.type===filterType.value;
+
 };
 const checkPrice = (ads)=> {
   const filterPrice = document.querySelector('#housing-price');
@@ -32,31 +32,31 @@ const checkRooms = (ads) => {
   const filterRooms = document.querySelector('#housing-rooms');
   if (filterRooms.value === 'any') {
     return true;
-  } else {
-    return ads.offer.rooms === Number(filterRooms.value);
   }
+  return ads.offer.rooms === Number(filterRooms.value);
+
 };
 
 const checkGuests = (ads) => {
   const filterGuests = document.querySelector('#housing-guests');
   if (filterGuests.value === 'any') {
     return true;
-  } else {
-    return ads.offer.guests === Number(filterGuests.value);
   }
+  return ads.offer.guests === Number(filterGuests.value);
+
 };
 
 const checkFeatures = (ads) => {
-  const chekedInputValues = getChekedInputValues('.map__checkbox:checked');
+  const checkedInputValues = getCheckedInputValues('.map__checkbox:checked');
   let isSimilarAd = true;
-  if ( chekedInputValues.length === '0') {
+  if ( checkedInputValues.length === '0') {
     return true;
   }
   if (!ads.offer.features) {
     return false;
   }
 
-  chekedInputValues.forEach((feature) => {
+  checkedInputValues.forEach((feature) => {
     if ( !ads.offer.features.includes(feature) ) {
       isSimilarAd = false;
     }

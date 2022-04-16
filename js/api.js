@@ -3,9 +3,9 @@ const getData = (onFail, onSuccess) => {
     .then((response) => {
       if (response.ok) {
         return response.json();
-      } else {
-        onFail('Произошла ошибка загрузки данных, перезагрузите страницу');
-      }})
+      }
+      onFail('Произошла ошибка загрузки данных, перезагрузите страницу');
+    })
     .then((ads) => {
       onSuccess(ads);
     })
@@ -26,10 +26,10 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response)=>{
       if (response.ok)
       {
-        onSuccess();
-      } else {
-        throw new Error();
+        return onSuccess();
       }
+
+      throw new Error();
     })
     .catch(()=>{
       onFail();

@@ -19,9 +19,9 @@ const createUrl = () => {
   const users=getRandom(1,10);
   if (users===10) {
     return `img/avatars/user${  users  }.png`;
-  } else {
-    return `img/avatars/user0${  users  }.png` ;
   }
+  return `img/avatars/user0${  users  }.png` ;
+
 };
 const getShuffledItems = (items) => items.slice().sort(() => 0.5 - Math.random());
 
@@ -52,11 +52,11 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-const getChekedInputValues = (selector) => {
-  const chekedValues = [];
+const getCheckedInputValues = (selector) => {
+  const checkedValues = [];
   const filterFeatures = document.querySelectorAll(selector);
-  filterFeatures.forEach((features) => chekedValues.push(features.value));
-  return chekedValues;
+  filterFeatures.forEach((features) => checkedValues.push(features.value));
+  return checkedValues;
 };
 
 const debounce = (callback, timeoutDelay = 500) => {
@@ -67,4 +67,4 @@ const debounce = (callback, timeoutDelay = 500) => {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
-export {getRandom, getRandomFraction, createUrl, getRandomItems, isEscEvent, showAlert, getChekedInputValues, debounce};
+export {getRandom, getRandomFraction, createUrl, getRandomItems, isEscEvent, showAlert, getCheckedInputValues, debounce};

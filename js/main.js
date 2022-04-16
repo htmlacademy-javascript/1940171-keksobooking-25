@@ -1,11 +1,10 @@
 import './slider.js';
 import './user-validation.js';
 import {renderSimilarAds} from './map.js';
-import './data.js';
 import {getData} from './api.js';
 import {adsFilter} from './map-filter.js';
 import {showAlert, debounce} from './util.js';
-
+import './load-photo.js';
 const SIMILAR_AD_COUNT = 10;
 const RERENDER_DELAY = 500;
 

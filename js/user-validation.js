@@ -8,9 +8,10 @@ const roomsField = adForm.querySelector('[name="rooms"]');
 const capacityField = adForm.querySelector('[name="capacity"]');
 const successTemplate = document.querySelector ('#success').content.querySelector('.success');
 const successMessage = successTemplate.cloneNode(true);
-const errorTemplate = document.querySelector ('#error').content.querySelector('.error');
-const errorMessage = errorTemplate.cloneNode(true);
-const errorButton = document.querySelector('.error__button');
+const errorTemplate = document.querySelector ('#error');
+const errorTemplateContent = errorTemplate.content.querySelector('.error');
+const errorMessage = errorTemplateContent.cloneNode(true);
+const errorButton = errorTemplateContent.querySelector('.error__button');
 const submitButton = document.querySelector('.ad-form__submit');
 const address = document.querySelector('#address');
 
@@ -140,7 +141,7 @@ adForm.addEventListener('submit', (evt) => {
   if (isValid) {
     const formData = new FormData(evt.target);
     submitButton.setAttribute('disabled', 'disabled');
-    sendData (onSuccess,onFail,formData);
+    sendData (onSuccess, onFail, formData);
   }
 });
 
@@ -150,7 +151,7 @@ function closeSuccessMessage () {
   document.removeEventListener('click', onClickSuccessMessage);
 }
 
-function onClickSuccessMessage  () {
+function onClickSuccessMessage () {
   closeSuccessMessage();
 }
 

@@ -2,10 +2,10 @@ import {TYPE_РOUSING} from './user-validation.js';
 const sliderElement = document.querySelector('.ad-form__slider');
 const price = document.querySelector('#price');
 const typeHousingField = document.querySelector('#type');
-const STEP_SLIDER = 1;
-const START_POSITION = 0;
 const MIN_RANGE = 0;
 const MAX_RANGE = 100000;
+const STEP_SLIDER = 1;
+const START_POSITION = 0;
 
 noUiSlider.create(sliderElement, {
   range: {

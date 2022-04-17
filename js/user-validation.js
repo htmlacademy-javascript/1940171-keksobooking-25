@@ -15,8 +15,13 @@ const errorButton = errorTemplateContent.querySelector('.error__button');
 const submitButton = document.querySelector('.ad-form__submit');
 const address = document.querySelector('#address');
 
+const timeOptions = {
+  '12:00' : '12:00',
+  '13:00' : '13:00',
+  '14:00' : '14:00',
+};
 
-const typeРousing = {
+const TYPE_РOUSING = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -28,7 +33,7 @@ const roomsOption = {
   '1': '1',
   '2':['2','1'],
   '3':['3','2','1'],
-  '110':'0'
+  '100':'0'
 };
 
 
@@ -55,12 +60,12 @@ const typeHousingField = adForm.querySelector('#type');
 
 const validateAdPrice = (value) => {
   const unit = document.querySelector('#type');
-  return value >= typeРousing[unit.value] && value <= 100000;
+  return value >= TYPE_РOUSING[unit.value] && value <= 100000;
 };
 
 const getAdTypeErrorMessage = () => {
   const unit = document.querySelector('#type');
-  return `Минимальная цена за ночь: ${typeРousing[unit.value]}`;
+  return `Минимальная цена за ночь: ${TYPE_РOUSING[unit.value]}`;
 };
 
 pristine.addValidator(
@@ -70,13 +75,12 @@ pristine.addValidator(
 );
 
 const setMinPrice = (type, price) => {
-  price.min = typeРousing[type.value];
-  price.placeholder =  typeРousing[type.value];
+  price.min = TYPE_РOUSING[type.value];
 };
 
 const onAdTypeChange = () => {
-  setMinPrice(typeHousingField, priceField);
   pristine.validate(priceField);
+  setMinPrice(typeHousingField, priceField);
 };
 
 typeHousingField.addEventListener('change', () => {
@@ -101,12 +105,6 @@ roomsField.addEventListener('change', () => {
   pristine.validate(capacityField);
 });
 
-
-const timeOptions = {
-  '12:00' : '12:00',
-  '13:00' : '13:00',
-  '14:00' : '14:00',
-};
 const timein = adForm.querySelector('[name="timein"]');
 const timeout = adForm.querySelector('[name="timeout"]');
 
@@ -182,4 +180,4 @@ function onClickErrorButton () {
   closeErrorMessage();
 }
 
-export {typeРousing, pristine};
+export {TYPE_РOUSING, pristine};

@@ -1,6 +1,7 @@
 import {getCheckedInputValues} from './util.js';
 const mapFilters = document.querySelector('.map__filters');
-
+const MIN_VALUE = 10000;
+const MIDDLE_VALUE = 50000;
 const adsFilter = (cb) => {
   mapFilters.addEventListener('change', () => {
     cb();
@@ -20,11 +21,11 @@ const checkPrice = (ads)=> {
   if (filterPrice.value === 'any') {
     return true;
   } if (filterPrice.value === 'middle') {
-    return 10000 <= ads.offer.price && ads.offer.price <= 50000;
+    return MIN_VALUE <= ads.offer.price && ads.offer.price <= MIDDLE_VALUE;
   } if (filterPrice.value === 'low') {
-    return ads.offer.price <= 10000;
+    return ads.offer.price <= MIN_VALUE;
   } if (filterPrice.value === 'high') {
-    return 50000 < ads.offer.price;
+    return MIDDLE_VALUE < ads.offer.price;
   }
 };
 

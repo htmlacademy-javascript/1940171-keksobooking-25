@@ -1,4 +1,4 @@
-import {disabledForm, EnabledForm} from './state.js';
+import {disabledForm, enabledForm} from './state.js';
 import { renderPopup } from './markup-generation.js';
 import {checkType,checkPrice, checkRooms, checkGuests, checkFeatures} from './map-filter.js';
 import {newPhotoElement} from './load-photo.js';
@@ -11,10 +11,14 @@ const AVATAR_DEFAULT_SRC = 'img/muffin-grey.svg';
 const START_LATITUDE = 35.6895;
 const START_LONGITUDE = 139.692;
 const START_ZOOM = 12;
+const SIZE_ADS_ICON = [40, 40];
+const ANCHOR_ADS_ICON = [20, 40];
+const SIZE_MAIN_ICON = [52, 52];
+const ANCHOR_MAIN_ICON = [26, 52];
 const map = L.map('map-canvas')
   .on('load', () => {
     address.value = `${START_LATITUDE  } ,${ START_LONGITUDE}`;
-    EnabledForm();
+    enabledForm();
   })
   .setView({
     lat: START_LATITUDE,
@@ -31,14 +35,14 @@ L.tileLayer(
 
 const adsPinIcon = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: SIZE_ADS_ICON,
+  iconAnchor: ANCHOR_ADS_ICON,
 });
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: SIZE_MAIN_ICON,
+  iconAnchor: ANCHOR_MAIN_ICON,
 });
 
 

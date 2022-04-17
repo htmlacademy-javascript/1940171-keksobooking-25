@@ -1,3 +1,9 @@
+const loadAvatar = document.querySelector('#avatar');
+const avatarPreview = document.querySelector('.ad-form-header__preview img');
+const loadPhoto= document.querySelector('#images');
+const photoPreview = document.querySelector('.ad-form__photo');
+const newPhotoElement = document.createElement('img');
+
 const FILE_TYPES = [
   'gif',
   'jpg',
@@ -5,8 +11,6 @@ const FILE_TYPES = [
   'png'
 ];
 
-const loadAvatar = document.querySelector('#avatar');
-const avatarPreview = document.querySelector('.ad-form-header__preview img');
 
 const uploadAvatar = () => {
   loadAvatar.addEventListener('change', () => {
@@ -20,10 +24,6 @@ const uploadAvatar = () => {
     }
   });
 };
-
-const loadPhoto= document.querySelector('#images');
-const photoPreview = document.querySelector('.ad-form__photo');
-const newPhotoElement = document.createElement('img');
 
 const uploadPhotos = () => {
   loadPhoto.addEventListener('change', () => {

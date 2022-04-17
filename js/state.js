@@ -22,7 +22,7 @@ const disabledForm = ()=>{
     elem.setAttribute('disabled', 'disabled');
   });
 };
-const EnabledForm = ()=> {
+const enabledForm = ()=> {
   form.classList.remove('ad-form--disabled');
   filters.classList.remove('ad-form--disabled');
   header.removeAttribute('disabled', 'disabled');
@@ -35,4 +35,4 @@ const EnabledForm = ()=> {
     elem.removeAttribute('disabled', 'disabled');
   });
 };
-export {disabledForm, EnabledForm};
+export {disabledForm, enabledForm};

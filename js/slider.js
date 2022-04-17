@@ -1,22 +1,19 @@
+import {TYPE_РOUSING} from './user-validation.js';
 const sliderElement = document.querySelector('.ad-form__slider');
 const price = document.querySelector('#price');
 const typeHousingField = document.querySelector('#type');
-
-const typeРousing = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000
-};
+const MIN_RANGE = 0;
+const MAX_RANGE = 100000;
+const STEP_SLIDER = 1;
+const START_POSITION = 0;
 
 noUiSlider.create(sliderElement, {
   range: {
-    min: 0,
-    max: 100000,
+    min: MIN_RANGE,
+    max: MAX_RANGE,
   },
-  start: 0,
-  step: 1,
+  start: START_POSITION,
+  step: STEP_SLIDER,
   connect: 'lower',
   format: {
     to: function (value) {
@@ -30,14 +27,13 @@ noUiSlider.create(sliderElement, {
 
 typeHousingField.addEventListener('change', () => {
   const type = typeHousingField.value;
-  const min = typeРousing[type];
+  const min = TYPE_РOUSING[type];
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: min,
-      max: 100000,
+      max: MAX_RANGE,
     },
-    start: min,
-    step: 1,
+    step: STEP_SLIDER,
   });
 });
 

@@ -1,4 +1,3 @@
-import {TYPE_РOUSING} from './user-validation.js';
 const sliderElement = document.querySelector('.ad-form__slider');
 const price = document.querySelector('#price');
 const typeHousingField = document.querySelector('#type');
@@ -26,15 +25,24 @@ noUiSlider.create(sliderElement, {
 });
 
 typeHousingField.addEventListener('change', () => {
-  const type = typeHousingField.value;
-  const min = TYPE_РOUSING[type];
   sliderElement.noUiSlider.updateOptions({
     range: {
-      min: min,
+      min: MIN_RANGE,
       max: MAX_RANGE,
     },
     step: STEP_SLIDER,
   });
+});
+
+price.addEventListener('change', () => {
+  const priceIsNan = '0';
+  if (price.value === '') {
+    price.value = priceIsNan;
+  }
+  sliderElement.noUiSlider.updateOptions({
+    start: price.value,
+  });
+
 });
 
 sliderElement.noUiSlider.on('update', () => {

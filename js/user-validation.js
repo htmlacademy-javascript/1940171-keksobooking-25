@@ -76,6 +76,7 @@ pristine.addValidator(
 
 const setMinPrice = (type, price) => {
   price.min = TYPE_РOUSING[type.value];
+  price.placeholder = TYPE_РOUSING[type.value];
 };
 
 const onAdTypeChange = () => {
@@ -180,4 +181,4 @@ function onClickErrorButton () {
   closeErrorMessage();
 }
 
-export {TYPE_РOUSING, pristine};
+export {pristine};
